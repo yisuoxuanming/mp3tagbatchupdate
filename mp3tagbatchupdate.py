@@ -49,10 +49,10 @@ def  go(directory, album, artist, publisher, release_date, \
         for i in TAGS:
             tag_dict[i] = getattr(mp3.tag, i)
 
-        if dirnametoalbum:
+        if dirnameasalbum:
             album = os.path.basename(directory)
 
-        if filenametotitle:
+        if filenameastitle:
             tag_dict['title'] = f[:-4] # strip '.mp3'
 
         if clear:
