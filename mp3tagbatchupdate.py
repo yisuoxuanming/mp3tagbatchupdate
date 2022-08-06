@@ -15,18 +15,17 @@ TAGS = ('album', 'album_artist', 'album_type', 'artist', \
 @click.command()
 @click.option('--directory', help='mp3所在目录')
 @click.option('--album', help='专辑名称')
-@click.option('--album_artist', help='专辑作者')
-@click.option('--artist', help='艺人')
+@click.option('--artist', help='艺人名称')
 @click.option('--publisher', help='发行公司')
 @click.option('--release_date', help='发行日期')
 @click.option('--disc_num')
-@click.option('--clear', help='清空原来的标签,不保留原标签内容', is_flag=True)
-@click.option('--rename', help='根据title字段重命名文件', is_flag=True)
-@click.option('--filenametotitle', help='用文件名设置title', is_flag=True)
-@click.option('--dirnametoalbum', help='用目录名设置album', is_flag=True)
+@click.option('--clear', help='clear all tags', is_flag=True)
+@click.option('--renamefile', help='根据title标签重命名文件', is_flag=True)
+@click.option('--filenameastitle', help='用文件名设置title标签', is_flag=True)
+@click.option('--dirnameasalbum', help='用目录名设置album标签', is_flag=True)
 @click.option('--verbose', is_flag=True)
-def  go(directory, album, album_artist, artist, publisher, release_date, \
-    clear, rename, filenametotitle, dirnametoalbum, verbose, disc_num):
+def  go(directory, album, artist, publisher, release_date, \
+    clear, renamefile, filenameastitle, dirnameasalbum, verbose, disc_num):
 
     if verbose:
         for k,v in locals().items():
@@ -76,7 +75,7 @@ def  go(directory, album, album_artist, artist, publisher, release_date, \
 
         mp3.tag.save()
 
-        if rename:
+        if renamefile:
             print(f'Renaming {f} to {mp3.tag.title}.mp3')
             os.rename(f, f"{mp3.tag.title}.mp3")
 
