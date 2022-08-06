@@ -44,10 +44,26 @@ def  go(directory, album, artist, publisher, release_date, \
         print(f'Changing tag of {f}')
         mp3 = eyed3.load(f)
         tag_dict = {}
+        if not mp3:
+            print(f'无法打开{f}')
+            continue
+
         if not mp3.tag:
             mp3.initTag()
+
         for i in TAGS:
-            tag_dict[i] = getattr(mp3.tag, i)
+            tg = getattr(mp3.tag, i)
+            if not tg:
+                tag_dict[i] = None
+            else:
+                try:
+                    if isinstance(tg, str):
+                        tag_dict[i] = tg.encode('latin1').decode('gbk')
+                    else:
+                        tag_dict[i] = tg
+                except UnicodeEncodeError as e:
+                    print(e)
+                    tag_dict[i] = tg
 
         if dirnameasalbum:
             album = os.path.basename(directory)
