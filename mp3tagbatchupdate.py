@@ -24,8 +24,8 @@ TAGS = ('album', 'album_artist', 'album_type', 'artist', \
 @click.option('--filenameastitle', help='用文件名设置title标签', is_flag=True)
 @click.option('--dirnameasalbum', help='用目录名设置album标签', is_flag=True)
 @click.option('--verbose', is_flag=True)
-def  go(directory, album, artist, publisher, release_date, \
-    clear, renamefile, filenameastitle, dirnameasalbum, verbose, disc_num):
+def  go(directory, \
+    clear, renamefile, filenameastitle, dirnameasalbum, verbose, **kwargs):
 
     if verbose:
         for k,v in locals().items():
@@ -78,8 +78,8 @@ def  go(directory, album, artist, publisher, release_date, \
             mp3.initTag()
 
         if verbose:
-            print(locals())
-        for k, v in locals().items():
+            print(args)
+        for k, v in kwargs.items():
             if k in TAGS and  v:
                 tag_dict[k] = v
 
