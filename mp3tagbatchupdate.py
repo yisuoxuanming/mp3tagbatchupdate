@@ -77,8 +77,6 @@ def  go(directory, \
         else:
             mp3.initTag()
 
-        if verbose:
-            print(args)
         for k, v in kwargs.items():
             if k in TAGS and  v:
                 tag_dict[k] = v
